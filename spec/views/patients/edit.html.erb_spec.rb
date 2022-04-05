@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "patients/edit", type: :view do
   before(:each) do
     @patient = assign(:patient, Patient.create!(
-      id: 1,
       name: "MyString",
       cpf: "MyString"
     ))
@@ -13,8 +12,6 @@ RSpec.describe "patients/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", patient_path(@patient), "post" do
-
-      assert_select "input[name=?]", "patient[id]"
 
       assert_select "input[name=?]", "patient[name]"
 

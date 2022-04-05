@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "doctors/edit", type: :view do
   before(:each) do
     @doctor = assign(:doctor, Doctor.create!(
-      id: 1,
       name: "MyString",
       crm: "MyString",
       crm_uf: "MyString"
@@ -14,8 +13,6 @@ RSpec.describe "doctors/edit", type: :view do
     render
 
     assert_select "form[action=?][method=?]", doctor_path(@doctor), "post" do
-
-      assert_select "input[name=?]", "doctor[id]"
 
       assert_select "input[name=?]", "doctor[name]"
 
