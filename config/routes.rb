@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   resources :doctors
 
   # Defines the root path route ("/")
-  root "dashboards#show"
+  root "appointments#index"
 end

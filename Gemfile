@@ -54,6 +54,8 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'cpf_cnpj'
+  gem 'validators'
 end
 
 group :development do
