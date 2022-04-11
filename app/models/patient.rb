@@ -15,5 +15,4 @@ class Patient < ApplicationRecord
         self.cpf = value.formatted
         value.valid?
     end
-
 end

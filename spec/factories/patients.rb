@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :patient do
-    name { "MyString" }
-    birth_date { "2022-04-05" }
-    cpf { "MyString" }
+    name { Faker::Name.name }
+    birth_date { Faker::Date.between(from: '1900-01-01', to: Date.today) }
+    cpf { CPF.generate(true) }
   end
 end
