@@ -14,12 +14,18 @@ class Doctor < ApplicationRecord
     # devemos validar no controller
 
     before_validation do
-        updated_CRM
+        valid_CRM
+        update_CRM
     end
     
     private
 
-    def updated_CRM
+    def valid_CRM
+        errors.add(:base, 'Invalid CRM, must have 6 digits') if crm.length != 6
+    end
+
+    def update_CRM
+        crm_uf.upcase!
         self.crm = crm + crm_uf
     end
 
