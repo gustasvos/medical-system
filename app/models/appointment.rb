@@ -4,18 +4,20 @@ class Appointment < ApplicationRecord
     validates :patient_id, :doctor_id, :starts_at, :ends_at, presence: true
 
     before_validation do
+        end_time
         is_opening_hours
         valid_date
         is_available
         throw(:abort) if errors.present?
     end
+
+    before_save :is_available
     
     private
 
-    def time_limit
-
+    def end_time
+        self.ends_at = starts_at + 30.minutes
     end
-
 
     def is_opening_hours
         starts = starts_at.strftime('%H:%M')
@@ -36,10 +38,22 @@ class Appointment < ApplicationRecord
     end
 
     def is_available
-        starts = starts_at.strftime('%d-%m-%Y %H:%M')
-        appointment = Appointment.find_by(starts_at: starts)
-        if appointment.present?
-            errors.add(:base, 'It has another appointment at this time')
+        Appointment.all.each do |other|
+            # A B A B
+            if other.starts_at < ends_at && other.ends_at > ends_at && self != other
+              errors.add(:base, 'Exists another appointment at this interval.')
+            # B A B A
+            elsif other.starts_at < starts_at && other.ends_at > starts_at && self != other
+              errors.add(:base, 'Exists another appointment at this interval.')
+            end
         end
     end
+
+    # def is_available
+    #     starts = starts_at.strftime('%d-%m-%Y %H:%M')
+    #     appointment = Appointment.find_by(starts_at: starts)
+    #     if appointment.present?
+    #         errors.add(:base, 'It has another appointment at this time')
+    #     end
+    # end
 end

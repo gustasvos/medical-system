@@ -4,7 +4,7 @@ class Patient < ApplicationRecord
 
     validates_cpf_format_of :cpf
 
-    before_validation :formatCPF
+    before_validation :formatCPF, :birth_date
 
     private
 
@@ -12,5 +12,11 @@ class Patient < ApplicationRecord
         value = CPF.new(cpf)
         self.cpf = value.formatted
         value.valid?
+    end
+
+    def valid_birth
+        if birth_date > DateTime.now
+            errors.add(:base, 'Invalid birth date')
+        end
     end
 end
