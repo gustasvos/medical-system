@@ -6,7 +6,8 @@ RSpec.describe Patient, type: :model do
   context 'when created' do
     it 'cpf' do
       patient = create(:patient)
-      expect(patient.cpf).to include('.')
+      expect(patient.cpf).to include('.', '-')
+      expect(patient.cpf.length).to be(14)
     end
     
     it 'birth date' do
