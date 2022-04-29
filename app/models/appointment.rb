@@ -22,7 +22,7 @@ class Appointment < ApplicationRecord
     def is_opening_hours
         starts = starts_at.strftime('%H:%M')
         ends = ends_at.strftime('%H:%M')
-        if starts < '09:00'
+        if starts < '09:00' 
             errors.add(:base, 'The clinic does not work at this time.')
         elsif ('11:30'..'12:59').cover?(starts)
             errors.add(:base, 'The clinic does not work at this time.')
