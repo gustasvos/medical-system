@@ -15,8 +15,6 @@ RSpec.describe Appointment, type: :model do
       create(:appointment, patient: patient, doctor: doctor)
     }
     it 'hour' do
-      
-      byebug
       expect(appointment.ends_at).to eq(appointment.starts_at + 30.minutes)
     end
   end
